@@ -43,7 +43,9 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 
 func (pb *PurdoobahBot) mux(session disgord.Session, m *disgord.MessageCreate) {
 	if strings.ToLower(m.Message.Content) == "!ymsh" {
-		_, err := m.Message.Reply(context.Background(), session, pb.ymsh.String(pb.rand))
+		ymsh := pb.ymsh.String(pb.rand)
+		log.Println("YMSH:", ymsh)
+		_, err := m.Message.Reply(context.Background(), session, ymsh)
 		if err != nil {
 			log.Printf("YMSH Reply error: %+v\n", err)
 		}
