@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"log"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/andersfylling/disgord"
 )
@@ -11,6 +13,8 @@ import (
 // PurdoobahBot is the Discord PurdoobahBot.
 type PurdoobahBot struct {
 	*disgord.Client
+
+	rand *rand.Rand
 
 	ymsh *ymsh
 }
@@ -28,6 +32,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			BotToken:    botToken,
 			Logger:      disgord.DefaultLogger(false),
 		}),
+		rand: rand.New(rand.NewSource(time.Now().UnixNano())),
 		ymsh: ymsh,
 	}
 
@@ -38,7 +43,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 
 func (pb *PurdoobahBot) mux(session disgord.Session, m *disgord.MessageCreate) {
 	if strings.ToLower(m.Message.Content) == "!ymsh" {
-		_, err := m.Message.Reply(context.Background(), session, pb.ymsh.String())
+		_, err := m.Message.Reply(context.Background(), session, pb.ymsh.String(pb.rand))
 		if err != nil {
 			log.Printf("YMSH Reply error: %+v\n", err)
 		}

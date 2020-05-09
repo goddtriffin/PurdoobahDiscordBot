@@ -48,7 +48,7 @@ func newYMSH() (*ymsh, error) {
 	return ymsh, nil
 }
 
-func (ymsh *ymsh) String() string {
+func (ymsh *ymsh) String(rand *rand.Rand) string {
 	yWord := ymsh.y[rand.Intn(len(ymsh.y))]
 	mWord := ymsh.m[rand.Intn(len(ymsh.m))]
 	sWord := ymsh.s[rand.Intn(len(ymsh.s))]
