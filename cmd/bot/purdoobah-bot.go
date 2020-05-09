@@ -41,13 +41,20 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 	return pb, nil
 }
 
-func (pb *PurdoobahBot) mux(session disgord.Session, m *disgord.MessageCreate) {
-	if strings.ToLower(m.Message.Content) == "!ymsh" {
-		ymsh := pb.ymsh.String(pb.rand)
-		log.Println("YMSH:", ymsh)
-		_, err := m.Message.Reply(context.Background(), session, ymsh)
-		if err != nil {
-			log.Printf("YMSH Reply error: %+v\n", err)
-		}
+func (pb *PurdoobahBot) mux(s disgord.Session, evt *disgord.MessageCreate) {
+	command := strings.ToLower(strings.Fields(evt.Message.Content)[0])
+
+	if command == "!ymsh" {
+		pb.replyYMSH(s, evt)
+	}
+}
+
+func (pb *PurdoobahBot) replyYMSH(s disgord.Session, evt *disgord.MessageCreate) {
+	ymsh := pb.ymsh.String(pb.rand)
+	log.Println("YMSH:", ymsh)
+
+	_, err := evt.Message.Reply(context.Background(), s, ymsh)
+	if err != nil {
+		log.Printf("YMSH Reply error: %+v\n", err)
 	}
 }
