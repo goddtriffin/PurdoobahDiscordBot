@@ -114,8 +114,9 @@ func (pb *PurdoobahBot) replyCommands(s disgord.Session, evt *disgord.MessageCre
 	fields := []*disgord.EmbedField{}
 	for _, command := range pb.commands {
 		fields = append(fields, &disgord.EmbedField{
-			Name:  fmt.Sprintf("`%s`", command.String()),
-			Value: command.description,
+			Name:   fmt.Sprintf("`%s`", command.String()),
+			Value:  command.description,
+			Inline: true,
 		})
 	}
 
