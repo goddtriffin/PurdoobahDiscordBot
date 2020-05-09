@@ -49,12 +49,15 @@ func (pb *PurdoobahBot) mux(s disgord.Session, evt *disgord.MessageCreate) {
 
 	command := strings.ToLower(strings.Fields(evt.Message.Content)[0])
 
-	if command == "!help" {
+	switch command {
+	case "!help":
 		pb.replyHelp(s, evt)
-	}
-
-	if command == "!ymsh" {
+	case "!commands":
+		pb.replyCommands(s, evt)
+	case "!ymsh":
 		pb.replyYMSH(s, evt)
+	case "!website":
+		pb.replyWebsite(s, evt)
 	}
 }
 
@@ -66,12 +69,27 @@ func (pb *PurdoobahBot) reply(s disgord.Session, evt *disgord.MessageCreate, rep
 }
 
 func (pb *PurdoobahBot) replyHelp(s disgord.Session, evt *disgord.MessageCreate) {
+	help := &disgord.Embed{
+		Description: "**PurdoobahBot Help**",
+		Color:       15844367,
+		Fields: []*disgord.EmbedField{
+			{Name: "!commands", Value: "displays commands"},
+		},
+		Thumbnail: &disgord.EmbedThumbnail{
+			URL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
+		},
+	}
+
+	log.Printf("%s (%s) called !help\n", evt.Message.Author.Username, evt.Message.Author.ID)
+	pb.reply(s, evt, help)
+}
+
+func (pb *PurdoobahBot) replyCommands(s disgord.Session, evt *disgord.MessageCreate) {
 	fields := []*disgord.EmbedField{}
 	for _, command := range pb.getCommands() {
 		fields = append(fields, &disgord.EmbedField{
-			Name:   command.String(),
-			Value:  fmt.Sprintf("`%s`", command.description),
-			Inline: true,
+			Name:  fmt.Sprintf("`%s`", command.String()),
+			Value: fmt.Sprintf("%s", command.description),
 		})
 	}
 
@@ -84,7 +102,7 @@ func (pb *PurdoobahBot) replyHelp(s disgord.Session, evt *disgord.MessageCreate)
 		},
 	}
 
-	log.Printf("%s (%s) called !help\n", evt.Message.Author.Username, evt.Message.Author.ID)
+	log.Printf("%s (%s) called !commands\n", evt.Message.Author.Username, evt.Message.Author.ID)
 	pb.reply(s, evt, help)
 }
 
@@ -94,9 +112,16 @@ func (pb *PurdoobahBot) replyYMSH(s disgord.Session, evt *disgord.MessageCreate)
 	pb.reply(s, evt, fmt.Sprintf("YMSH stands for...\n||%s||", ymsh))
 }
 
+func (pb *PurdoobahBot) replyWebsite(s disgord.Session, evt *disgord.MessageCreate) {
+	log.Printf("%s (%s) called !website\n", evt.Message.Author.Username, evt.Message.Author.ID)
+	pb.reply(s, evt, fmt.Sprintf("%s", "https://www.purdoobahs.com/"))
+}
+
 func (pb *PurdoobahBot) getCommands() []command {
 	return []command{
-		{"help", "lists PurdoobahBot commands"},
+		{"help", "displays help"},
+		{"commands", "displays commands"},
 		{"YMSH", "secret YMSH definition"},
+		{"website", "links official website"},
 	}
 }
