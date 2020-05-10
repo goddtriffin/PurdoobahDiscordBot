@@ -47,6 +47,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			{"facebook", "links official Facebook"},
 			{"youtube", "links official Youtube"},
 			{"github", "links official Github"},
+			{"email", "links official E-mail"},
 		},
 		thumbnailURL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
 		socialMedia: map[string]string{
@@ -55,6 +56,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			"facebook":  "https://www.facebook.com/purdoobahs/",
 			"youtube":   "https://www.youtube.com/channel/UCIH2OACGjUeDPfkISb_lp_Q",
 			"github":    "https://github.com/purdoobahs",
+			"email":     "purdoobahs@gmail.com",
 		},
 		ymsh: ymsh,
 	}
@@ -90,6 +92,8 @@ func (pb *PurdoobahBot) mux(s disgord.Session, evt *disgord.MessageCreate) {
 		pb.replyYoutube(s, evt)
 	case "!github":
 		pb.replyGithub(s, evt)
+	case "!email":
+		pb.replyEmail(s, evt)
 	}
 }
 
@@ -128,9 +132,7 @@ func (pb *PurdoobahBot) replyCommands(s disgord.Session, evt *disgord.MessageCre
 		Description: "**PurdoobahBot Commands**",
 		Color:       15844367,
 		Fields:      fields,
-		Thumbnail: &disgord.EmbedThumbnail{
-			URL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
-		},
+		Thumbnail:   &disgord.EmbedThumbnail{URL: pb.thumbnailURL},
 	}
 
 	log.Printf("%s (%s) called !commands\n", evt.Message.Author.Username, evt.Message.Author.ID)
@@ -183,4 +185,8 @@ func (pb *PurdoobahBot) replyYoutube(s disgord.Session, evt *disgord.MessageCrea
 func (pb *PurdoobahBot) replyGithub(s disgord.Session, evt *disgord.MessageCreate) {
 	log.Printf("%s (%s) called !github\n", evt.Message.Author.Username, evt.Message.Author.ID)
 	pb.reply(s, evt, pb.socialMedia["github"])
+}
+func (pb *PurdoobahBot) replyEmail(s disgord.Session, evt *disgord.MessageCreate) {
+	log.Printf("%s (%s) called !email\n", evt.Message.Author.Username, evt.Message.Author.ID)
+	pb.reply(s, evt, fmt.Sprintf("` %s `", pb.socialMedia["email"]))
 }
