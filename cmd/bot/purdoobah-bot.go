@@ -46,6 +46,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			{"instagram", "links official Instagram"},
 			{"facebook", "links official Facebook"},
 			{"youtube", "links official Youtube"},
+			{"github", "links official Github"},
 		},
 		thumbnailURL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
 		socialMedia: map[string]string{
@@ -53,6 +54,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			"instagram": "https://www.instagram.com/purdoobahs/",
 			"facebook":  "https://www.facebook.com/purdoobahs/",
 			"youtube":   "https://www.youtube.com/channel/UCIH2OACGjUeDPfkISb_lp_Q",
+			"github":    "https://github.com/purdoobahs",
 		},
 		ymsh: ymsh,
 	}
@@ -86,6 +88,8 @@ func (pb *PurdoobahBot) mux(s disgord.Session, evt *disgord.MessageCreate) {
 		pb.replyFacebook(s, evt)
 	case "!youtube":
 		pb.replyYoutube(s, evt)
+	case "!github":
+		pb.replyGithub(s, evt)
 	}
 }
 
@@ -175,4 +179,8 @@ func (pb *PurdoobahBot) replyFacebook(s disgord.Session, evt *disgord.MessageCre
 func (pb *PurdoobahBot) replyYoutube(s disgord.Session, evt *disgord.MessageCreate) {
 	log.Printf("%s (%s) called !youtube\n", evt.Message.Author.Username, evt.Message.Author.ID)
 	pb.reply(s, evt, pb.socialMedia["youtube"])
+}
+func (pb *PurdoobahBot) replyGithub(s disgord.Session, evt *disgord.MessageCreate) {
+	log.Printf("%s (%s) called !github\n", evt.Message.Author.Username, evt.Message.Author.ID)
+	pb.reply(s, evt, pb.socialMedia["github"])
 }
