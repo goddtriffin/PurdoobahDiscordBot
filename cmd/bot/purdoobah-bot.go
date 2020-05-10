@@ -43,9 +43,9 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 			{"YMSH", "secret definition of YMSH"},
 			{"pr", "links social media"},
 			{"website", "links official website"},
-			{"instagram", "links official website"},
-			{"facebook", "links official website"},
-			{"youtube", "links official website"},
+			{"instagram", "links official Instagram"},
+			{"facebook", "links official Facebook"},
+			{"youtube", "links official Youtube"},
 		},
 		thumbnailURL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
 		socialMedia: map[string]string{
