@@ -20,8 +20,25 @@ showcoverage: coverage
 
 .PHONY: buildlocal
 buildlocal:
-	$(GOBUILD) -o bin/bot-local ./...
+	CGO_ENABLED=0 $(GOBUILD) -o bin/bot-local ./...
 
 .PHONY: runlocal
 runlocal: buildlocal
 	./bin/bot-local -token=$(PURDOOBAH_DISCORD_BOT_TOKEN)
+
+.PHONY: builddocker
+builddocker:
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o bin/bot-docker ./...
+	docker build --tag purdoobah-discord-bot --file build/Dockerfile .
+
+.PHONY: rundocker
+rundocker: builddocker
+	docker run \
+	--name "purdoobah_discord_bot" \
+	-d --restart unless-stopped \
+	-e PURDOOBAH_DISCORD_BOT_TOKEN \
+	purdoobah-discord-bot
+
+.PHONY: memusage
+memusage:
+	docker stats purdoobah_discord_bot --no-stream --format "{{.Container}}: {{.MemUsage}}"
