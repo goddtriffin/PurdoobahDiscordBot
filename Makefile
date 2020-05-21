@@ -33,11 +33,16 @@ builddocker:
 
 .PHONY: rundocker
 rundocker: builddocker
+	docker rm purdoobah_discord_bot
 	docker run \
 	--name "purdoobah_discord_bot" \
 	-d --restart unless-stopped \
 	-e PURDOOBAH_DISCORD_BOT_TOKEN \
 	purdoobah-discord-bot
+
+.PHONY: stopdocker
+stopdocker:
+	docker stop purdoobah_discord_bot
 
 .PHONY: memusage
 memusage:
