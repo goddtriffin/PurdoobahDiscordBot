@@ -4,7 +4,7 @@ The Official Purdoobah Discord bot.
 
 ## Setup
 
-In your shell, run: `export PURDOOBAH_DISCORD_BOT_TOKEN=<token>`
+In your shell, run: `export PURDOOBAH_DISCORD_BOT_TOKEN=<token>`. Replace `<token>` with your actual Discord bot token.
 
 ## Usage
 
