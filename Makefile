@@ -17,15 +17,14 @@ usage:
 
 .PHONY: buildlocal
 buildlocal:
-	CGO_ENABLED=0 go build -o bin/bot-local ./...
+	CGO_ENABLED=0 go build -o bin/bot ./...
 
 .PHONY: runlocal
 runlocal: buildlocal
-	./bin/bot-local -token=$(PURDOOBAH_DISCORD_BOT_TOKEN)
+	./bin/bot -token=$(PURDOOBAH_DISCORD_BOT_TOKEN)
 
 .PHONY: builddocker
 builddocker:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/bot-docker ./...
 	docker build --tag purdoobah-discord-bot --file build/Dockerfile .
 
 .PHONY: rundocker

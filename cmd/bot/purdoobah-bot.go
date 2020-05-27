@@ -61,6 +61,10 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		ymsh: ymsh,
 	}
 
+	pb.Ready(func() {
+		log.Println("PurdoobahBot is online!")
+	})
+
 	pb.On(disgord.EvtMessageCreate, pb.mux)
 
 	return pb, nil
