@@ -1,8 +1,10 @@
-# https://github.com/chemidy/smallest-secured-golang-docker-image/blob/master/go_module/Dockerfile
-# https://fabianlee.org/2018/05/10/docker-packaging-a-golang-version-of-hello-world-in-a-container/
 FROM golang:1.14.3-alpine3.11 AS builder
 
 RUN apk update && apk add --no-cache git ca-certificates tzdata && update-ca-certificates
+
+WORKDIR /PurdoobahDiscordBot
+
+COPY . .
 
 FROM alpine:3.11.6
 
