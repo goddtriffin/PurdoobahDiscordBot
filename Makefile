@@ -1,5 +1,4 @@
 .DEFAULT_GOAL := usage
-COVERPROFILE ?= /tmp/profile.out
 
 .PHONY: usage
 usage:
