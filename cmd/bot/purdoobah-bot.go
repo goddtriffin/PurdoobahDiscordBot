@@ -187,6 +187,15 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		pb.commandEmail,
 	)
 
+	// add up/down vote reactions to every message
+	pb.On(
+		disgord.EvtMessageCreate,
+
+		filterNonDM,
+
+		pb.react,
+	)
+
 	return pb, nil
 }
 

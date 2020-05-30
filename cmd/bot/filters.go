@@ -6,6 +6,14 @@ import (
 	"github.com/andersfylling/disgord"
 )
 
+func filterNonDM(evt interface{}) interface{} {
+	m := evt.(*disgord.MessageCreate)
+	if m.Message.IsDirectMessage() {
+		return nil
+	}
+	return evt
+}
+
 func filterNonHelpCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
 	if strings.ToLower(m.Message.Content) != "!help" {
