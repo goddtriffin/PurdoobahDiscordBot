@@ -191,6 +191,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 	pb.On(
 		disgord.EvtMessageCreate,
 
+		filter.NotByBot,
 		filterNonDM,
 
 		pb.react,
