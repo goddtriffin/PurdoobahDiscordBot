@@ -26,3 +26,5 @@ In your shell, run: `export PURDOOBAH_DISCORD_BOT_TOKEN=<token>`. Replace `<toke
   - removes the Docker container
 - `make memusage`
   - displays the memory usage of the currently running Docker container
+- `make logs`
+  - displays logs
