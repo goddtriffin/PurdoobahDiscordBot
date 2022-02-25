@@ -18,7 +18,7 @@ func main() {
 
 	pb, err := NewPurdoobahBot(*token)
 	if err != nil {
-		log.Printf("New PurdoobahBot error")
+		log.Printf("failed to initialize PurdoobahBot")
 		panic(err)
 	}
 	defer pb.StayConnectedUntilInterrupted(context.Background())

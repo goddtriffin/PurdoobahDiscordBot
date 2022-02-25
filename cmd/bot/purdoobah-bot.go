@@ -47,17 +47,10 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 
 		commands: []command{
 			{"help", "displays help"},
-			{"commands", "displays commands"},
-			{"YMSH", "secret definition of YMSH"},
-			{"pr", "links social media"},
-			{"website", "links official website"},
-			{"instagram", "links official Instagram"},
-			{"facebook", "links official Facebook"},
-			{"youtube", "links official Youtube"},
-			{"github", "links official Github"},
-			{"email", "links official E-mail"},
+			{"YMSH", "find out the secret definition of YMSH 👀"},
+			{"socials", "links social media"},
 		},
-		thumbnailURL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
+		thumbnailURL: "https://www.purdoobahs.com/static/image/socials/purdoobahs.webp",
 		socialMedia: map[string]string{
 			"website":   "https://www.purdoobahs.com/",
 			"instagram": "https://www.instagram.com/purdoobahs/",
@@ -88,17 +81,6 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		pb.commandHelp,
 	)
 
-	// !command
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonCommandsCommands,
-		pb.commandCommands,
-	)
-
 	// !ymsh
 	pb.On(
 		disgord.EvtMessageCreate,
@@ -110,81 +92,15 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		pb.commandYMSH,
 	)
 
-	// !pr
+	// !socials
 	pb.On(
 		disgord.EvtMessageCreate,
 
 		filter.NotByBot,
 		filter.HasPrefix,
 
-		filterNonPRCommands,
-		pb.commandPR,
-	)
-
-	// !website
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonWebsiteCommands,
-		pb.commandWebsite,
-	)
-
-	// !instagram
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonInstagramCommands,
-		pb.commandInstagram,
-	)
-
-	// !facebook
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonFacebookCommands,
-		pb.commandFacebook,
-	)
-
-	// !youtube
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonYoutubeCommands,
-		pb.commandYoutube,
-	)
-
-	// !github
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonGithubCommands,
-		pb.commandGithub,
-	)
-
-	// !email
-	pb.On(
-		disgord.EvtMessageCreate,
-
-		filter.NotByBot,
-		filter.HasPrefix,
-
-		filterNonEmailCommands,
-		pb.commandEmail,
+		filterNonSocialsCommands,
+		pb.commandSocials,
 	)
 
 	return pb, nil

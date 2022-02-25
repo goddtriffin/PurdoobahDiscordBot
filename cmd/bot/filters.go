@@ -22,14 +22,6 @@ func filterNonHelpCommands(evt interface{}) interface{} {
 	return evt
 }
 
-func filterNonCommandsCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!commands" {
-		return nil
-	}
-	return evt
-}
-
 func filterNonYMSHCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
 	if strings.ToLower(m.Message.Content) != "!ymsh" {
@@ -38,57 +30,9 @@ func filterNonYMSHCommands(evt interface{}) interface{} {
 	return evt
 }
 
-func filterNonPRCommands(evt interface{}) interface{} {
+func filterNonSocialsCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!pr" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonWebsiteCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!website" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonInstagramCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!instagram" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonFacebookCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!facebook" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonYoutubeCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!youtube" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonGithubCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!github" {
-		return nil
-	}
-	return evt
-}
-
-func filterNonEmailCommands(evt interface{}) interface{} {
-	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!email" {
+	if strings.ToLower(m.Message.Content) != "!socials" {
 		return nil
 	}
 	return evt

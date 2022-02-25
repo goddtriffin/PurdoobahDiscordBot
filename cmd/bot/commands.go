@@ -8,19 +8,6 @@ import (
 )
 
 func (pb *PurdoobahBot) commandHelp(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, &disgord.Embed{
-		Description: "**PurdoobahBot Help**",
-		Color:       15844367,
-		Fields: []*disgord.EmbedField{
-			{Name: "`!commands`", Value: "displays commands"},
-		},
-		Thumbnail: &disgord.EmbedThumbnail{URL: pb.thumbnailURL},
-	})
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !help\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandCommands(s disgord.Session, evt *disgord.MessageCreate) {
 	// convert list of commands to list of Disgord fields
 	fields := []*disgord.EmbedField{}
 	for _, command := range pb.commands {
@@ -32,7 +19,7 @@ func (pb *PurdoobahBot) commandCommands(s disgord.Session, evt *disgord.MessageC
 	}
 
 	pb.reply(s, evt, &disgord.Embed{
-		Description: "**PurdoobahBot Commands**",
+		Description: "**PurdoobahBot Help**",
 		Color:       15844367,
 		Fields:      fields,
 		Thumbnail:   &disgord.EmbedThumbnail{URL: pb.thumbnailURL},
@@ -48,7 +35,7 @@ func (pb *PurdoobahBot) commandYMSH(s disgord.Session, evt *disgord.MessageCreat
 	pb.Logger().Info(fmt.Sprintf("%s (%s) called !YMSH: %s\n", evt.Message.Author.Username, evt.Message.Author.ID, ymsh))
 }
 
-func (pb *PurdoobahBot) commandPR(s disgord.Session, evt *disgord.MessageCreate) {
+func (pb *PurdoobahBot) commandSocials(s disgord.Session, evt *disgord.MessageCreate) {
 	// convert list of PR account links to list of Disgord fields
 	fields := []*disgord.EmbedField{}
 	for name, URL := range pb.socialMedia {
@@ -59,49 +46,13 @@ func (pb *PurdoobahBot) commandPR(s disgord.Session, evt *disgord.MessageCreate)
 	}
 
 	pb.reply(s, evt, &disgord.Embed{
-		Description: "**PurdoobahBot Commands**",
+		Description: "**PurdoobahBot Socials**",
 		Color:       15844367,
 		Fields:      fields,
 		Thumbnail: &disgord.EmbedThumbnail{
-			URL: "https://www.purdoobahs.com/res/image/logo/purdoobahs-white-768x768.png",
+			URL: pb.thumbnailURL,
 		},
 	})
 
 	pb.Logger().Info(fmt.Sprintf("%s (%s) called !pr\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandWebsite(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, pb.socialMedia["website"])
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !website\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandInstagram(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, pb.socialMedia["instagram"])
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !instagram\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandFacebook(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, pb.socialMedia["facebook"])
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !facebook\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandYoutube(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, pb.socialMedia["youtube"])
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !youtube\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandGithub(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, pb.socialMedia["github"])
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !github\n", evt.Message.Author.Username, evt.Message.Author.ID))
-}
-
-func (pb *PurdoobahBot) commandEmail(s disgord.Session, evt *disgord.MessageCreate) {
-	pb.reply(s, evt, fmt.Sprintf("` %s `", pb.socialMedia["email"]))
-
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !email\n", evt.Message.Author.Username, evt.Message.Author.ID))
 }
