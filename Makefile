@@ -36,6 +36,7 @@ run_docker: build_docker ## creates and runs a new Docker container
 	docker run \
 	--name "purdoobahs_discord_bot" \
 	-d --restart unless-stopped \
+	-p 8080:8080 \
 	-e PURDOOBAH_DISCORD_BOT_TOKEN \
 	goddtriffin/purdoobahs-discord-bot:latest
 

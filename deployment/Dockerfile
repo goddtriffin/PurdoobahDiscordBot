@@ -28,4 +28,5 @@ COPY --from=builder /purdoobahs-discord-bot/bin/bot bot
 COPY --from=builder /purdoobahs-discord-bot/assets assets
 
 # run bot
+EXPOSE 8080
 CMD ./bot -token=$PURDOOBAH_DISCORD_BOT_TOKEN

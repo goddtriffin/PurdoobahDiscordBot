@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"net/http"
 	"os"
 	"time"
 
@@ -64,6 +65,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 
 	pb.Ready(func() {
 		pb.Logger().Info("PurdoobahBot is online!")
+		pb.startHealthEndpointServer()
 	})
 
 	// filters
@@ -110,5 +112,38 @@ func (pb *PurdoobahBot) reply(s disgord.Session, evt *disgord.MessageCreate, rep
 	_, err := evt.Message.Reply(context.Background(), s, reply)
 	if err != nil {
 		pb.Logger().Error(fmt.Sprintf("reply error: %+v\n", err))
+	}
+}
+
+func (pb *PurdoobahBot) startHealthEndpointServer() {
+	// create the server
+	addr := ":8080"
+	srv := &http.Server{
+		Addr: addr,
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			if req.URL.Path != "/api/v1/health" {
+				w.WriteHeader(http.StatusNotFound)
+				return
+			}
+
+			w.WriteHeader(http.StatusOK)
+			_, err := w.Write([]byte("OK"))
+			if err != nil {
+				pb.Logger().Error(err)
+				return
+			}
+		}),
+		IdleTimeout:  time.Minute,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	// run the server
+	pb.Logger().Info(fmt.Sprintf("Health checkpoint is being served at: %s/api/v1/health", addr))
+	err := srv.ListenAndServe()
+	if err != nil {
+		// print error on exit
+		pb.Logger().Error(err)
+		os.Exit(1)
 	}
 }
