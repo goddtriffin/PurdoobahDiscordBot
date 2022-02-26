@@ -121,6 +121,8 @@ func (pb *PurdoobahBot) startHealthEndpointServer() {
 	srv := &http.Server{
 		Addr: addr,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			pb.Logger().Info(fmt.Sprintf("%s %s", req.Method, req.URL.Path))
+
 			if req.URL.Path != "/api/v1/health" {
 				w.WriteHeader(http.StatusNotFound)
 				return
