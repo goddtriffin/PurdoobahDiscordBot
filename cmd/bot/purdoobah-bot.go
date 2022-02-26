@@ -70,9 +70,9 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 
 	// filters
 	filter, _ := std.NewMsgFilter(context.Background(), pb)
-	filter.SetPrefix("!")
+	filter.SetPrefix("/")
 
-	// !help
+	// /help
 	pb.On(
 		disgord.EvtMessageCreate,
 
@@ -83,7 +83,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		pb.commandHelp,
 	)
 
-	// !ymsh
+	// /ymsh
 	pb.On(
 		disgord.EvtMessageCreate,
 
@@ -94,7 +94,7 @@ func NewPurdoobahBot(botToken string) (*PurdoobahBot, error) {
 		pb.commandYMSH,
 	)
 
-	// !socials
+	// /socials
 	pb.On(
 		disgord.EvtMessageCreate,
 

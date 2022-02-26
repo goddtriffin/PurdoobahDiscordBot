@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-const commandSignal = "!"
+const commandSignal = "/"
 
 type command struct {
 	name        string

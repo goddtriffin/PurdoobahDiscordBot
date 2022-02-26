@@ -16,7 +16,7 @@ func filterNonDM(evt interface{}) interface{} {
 
 func filterNonHelpCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!help" {
+	if strings.ToLower(m.Message.Content) != "/help" {
 		return nil
 	}
 	return evt
@@ -24,7 +24,7 @@ func filterNonHelpCommands(evt interface{}) interface{} {
 
 func filterNonYMSHCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!ymsh" {
+	if strings.ToLower(m.Message.Content) != "/ymsh" {
 		return nil
 	}
 	return evt
@@ -32,7 +32,7 @@ func filterNonYMSHCommands(evt interface{}) interface{} {
 
 func filterNonSocialsCommands(evt interface{}) interface{} {
 	m := evt.(*disgord.MessageCreate)
-	if strings.ToLower(m.Message.Content) != "!socials" {
+	if strings.ToLower(m.Message.Content) != "/socials" {
 		return nil
 	}
 	return evt

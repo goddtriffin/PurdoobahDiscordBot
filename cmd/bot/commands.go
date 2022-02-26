@@ -25,14 +25,14 @@ func (pb *PurdoobahBot) commandHelp(s disgord.Session, evt *disgord.MessageCreat
 		Thumbnail:   &disgord.EmbedThumbnail{URL: pb.thumbnailURL},
 	})
 
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !commands\n", evt.Message.Author.Username, evt.Message.Author.ID))
+	pb.Logger().Info(fmt.Sprintf("%s (%s) called /help\n", evt.Message.Author.Username, evt.Message.Author.ID))
 }
 
 func (pb *PurdoobahBot) commandYMSH(s disgord.Session, evt *disgord.MessageCreate) {
 	ymsh := pb.ymsh.String(pb.rand)
 	pb.reply(s, evt, fmt.Sprintf("YMSH stands for... ||%s||", ymsh))
 
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !YMSH: %s\n", evt.Message.Author.Username, evt.Message.Author.ID, ymsh))
+	pb.Logger().Info(fmt.Sprintf("%s (%s) called /YMSH: %s\n", evt.Message.Author.Username, evt.Message.Author.ID, ymsh))
 }
 
 func (pb *PurdoobahBot) commandSocials(s disgord.Session, evt *disgord.MessageCreate) {
@@ -54,5 +54,5 @@ func (pb *PurdoobahBot) commandSocials(s disgord.Session, evt *disgord.MessageCr
 		},
 	})
 
-	pb.Logger().Info(fmt.Sprintf("%s (%s) called !pr\n", evt.Message.Author.Username, evt.Message.Author.ID))
+	pb.Logger().Info(fmt.Sprintf("%s (%s) called /socials\n", evt.Message.Author.Username, evt.Message.Author.ID))
 }
