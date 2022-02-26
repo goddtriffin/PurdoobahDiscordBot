@@ -57,7 +57,7 @@ push_docker: ## pushes new Docker image to Docker Hub
 	docker push goddtriffin/purdoobahs-discord-bot:latest
 
 .PHONY: restart_deployment
-restart_deployment: ## restarts all pods in the purdoobahs-website k8s deployment
+restart_deployment: ## restarts all pods in the k8s deployment
 	kubectl rollout restart deployment purdoobahs-discord-bot
 
 .PHONY: deploy
